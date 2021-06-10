@@ -2,15 +2,10 @@ package chap05.classpart;
 
 public class StudentTest {
     public static void main(String[] args) {
-        Student studentHong = new Student();
-        studentHong.studentID = 2019113173;
-        studentHong.studentName = "홍석주";
-        studentHong.address = "서울";
+        Student studentHong = new Student(2019113173, "홍석주");
         studentHong.showStudentInfo();
 
-        Student studentKim = new Student();
-        studentKim.studentID = 2019113183;
-        studentKim.studentName = "김개똥";
+        Student studentKim = new Student(2019113183, "김개똥");
         studentKim.address = "부산";
 
         studentKim.showStudentInfo();
