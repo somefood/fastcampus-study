@@ -5,7 +5,7 @@ public class PersonTest {
         Person personNoname = new Person();
         personNoname.showInfo();
 
-        Person personHong = new Person("홍석주", 25);
+        Person personHong = new Person("홍석주", 26);
         personHong.showInfo();
         System.out.println(personHong);
 
