@@ -5,8 +5,10 @@ import com.example.study.model.entity.User;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 public class UserRepositoryTest extends StudyApplicationTests{
 
@@ -39,6 +41,7 @@ public class UserRepositoryTest extends StudyApplicationTests{
     }
 
     @Test
+    @Transactional
     public void update() {
         Optional<User> user = userRepository.findById(2L);
 
@@ -51,7 +54,18 @@ public class UserRepositoryTest extends StudyApplicationTests{
         });
     }
 
+    @Test
+    @Transactional // 롤백 해줌
     public void delete() {
+        Optional<User> user = userRepository.findById(3L);
 
+        Assertions.assertTrue(user.isPresent()); // true
+
+        user.ifPresent(selectUser -> {
+            userRepository.delete(selectUser); // 반환 없음
+        });
+
+        Optional<User> deleteUser = userRepository.findById(3L);
+        Assertions.assertFalse(deleteUser.isPresent()); // false
     }
 }
