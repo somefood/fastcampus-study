@@ -2,12 +2,14 @@ package com.example.study.model.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor // 모든 매개변수 가지는 생성자
+@NoArgsConstructor
 @Entity // == table
 // @Table (동일하면 설정 안해도 됨)
 public class User {
