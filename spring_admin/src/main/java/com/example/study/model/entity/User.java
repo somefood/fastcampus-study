@@ -20,14 +20,14 @@ public class User {
 
 //    @Column(name = "account") // 동일하면 안해도 됨
     private String account;
+    private String password;
+    private String status;
     private String email;
     private String phoneNumber;
+    private LocalDateTime registeredAt;
+    private LocalDateTime unregisteredAt;
     private LocalDateTime createdAt;
     private String createdBy;
     private LocalDateTime updatedAt;
     private String updatedBy;
-
-    // 1 : N
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user") // OrderDetail user와 동일하게
-    private List<OrderDetail> orderDetailList;
 }
