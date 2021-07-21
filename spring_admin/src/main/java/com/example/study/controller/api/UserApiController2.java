@@ -1,6 +1,7 @@
 package com.example.study.controller.api;
 
 import com.example.study.model.entity.User;
+import com.example.study.model.enumclass.UserStatus;
 import com.example.study.model.network.Header;
 import com.example.study.model.network.request.UserApiRequest;
 import com.example.study.repository.UserRepository;
@@ -31,7 +32,7 @@ public class UserApiController2{
             user = User.builder()
                     .account(userApiRequest.getAccount())
                     .password(userApiRequest.getPassword())
-                    .status("REGISTERED")
+                    .status(UserStatus.REGISTERED)
                     .phoneNumber(userApiRequest.getPhoneNumber())
                     .email(userApiRequest.getEmail())
                     .registeredAt(LocalDateTime.now())
