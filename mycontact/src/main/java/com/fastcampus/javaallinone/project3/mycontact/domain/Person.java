@@ -1,49 +1,58 @@
 package com.fastcampus.javaallinone.project3.mycontact.domain;
 
+import lombok.*;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.time.LocalDate;
 
 @Entity
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
+@RequiredArgsConstructor
 public class Person {
     @Id
     @GeneratedValue // 자동 생성
     private Long id;
 
+    @NonNull
     private String name;
 
+    @NonNull
     private int age;
 
-    public Long getId() {
-        return id;
-    }
+    private String hobby;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    private String bloodType;
 
-    public String getName() {
-        return name;
-    }
+    private String address;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    private LocalDate birthday;
 
-    public int getAge() {
-        return age;
-    }
+    private String job;
 
-    public void setAge(int age) {
-        this.age = age;
-    }
+    @ToString.Exclude
+    private String phoneNumber;
 
-    @Override
-    public String toString() {
-        return "Person{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", age=" + age +
-                '}';
+    public boolean equals(Object object) {
+        if(object == null){
+            return false;
+        }
+
+        Person person = (Person) object;
+
+        if(!person.getName().equals(this.getName())) {
+            return false;
+        }
+
+        if(person.getAge() != this.getAge()) {
+            return false;
+        }
+
+        return true;
     }
 }
