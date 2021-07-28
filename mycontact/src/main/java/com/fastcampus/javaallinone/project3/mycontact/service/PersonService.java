@@ -45,4 +45,9 @@ public class PersonService {
 //
         return person;
     }
+
+    @Transactional
+    public void put(Person person) {
+        personRepository.save(person);
+    }
 }
