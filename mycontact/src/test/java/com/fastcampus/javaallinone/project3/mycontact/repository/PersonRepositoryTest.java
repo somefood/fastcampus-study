@@ -26,7 +26,6 @@ class PersonRepositoryTest {
     void crud() {
         Person person = new Person();
         person.setName("john");
-        person.setAge(10);
         person.setBloodType("A");
 
         personRepository.save(person);
@@ -35,7 +34,7 @@ class PersonRepositoryTest {
 
         Assertions.assertThat(result.size()).isEqualTo(1);
         Assertions.assertThat(result.get(0).getName()).isEqualTo("john");
-        Assertions.assertThat(result.get(0).getAge()).isEqualTo(10);
+//        Assertions.assertThat(result.get(0).getAge()).isEqualTo(10);
         Assertions.assertThat(result.get(0).getBloodType()).isEqualTo("A");
     }
 
