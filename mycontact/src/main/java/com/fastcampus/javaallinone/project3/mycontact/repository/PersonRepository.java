@@ -11,10 +11,6 @@ import java.util.List;
 public interface PersonRepository extends JpaRepository<Person, Long> {
     List<Person> findByName(String name);
 
-    List<Person> findByBlockIsNull();
-
-    List<Person> findByBloodType(String bloodType);
-
 //    @Query(value = "select person from Person person where person.birthday.monthOfBirthday = ?1 and person.birthday.dayOfBirthday=?2") // jpql (Entity 기반 퀀리), ?1은 첫번째 인자
     // native = true는 실제 SQl로
 //    @Query(value = "select * from person where month_of_birthday = :monthOfBirthday and day_of_birthday =:dayOfBirthday", nativeQuery = true)
