@@ -28,28 +28,20 @@ public class PersonController {
     @ResponseStatus(HttpStatus.CREATED) // 201 Response
     public void postPerson(@RequestBody Person person) { // 어노테이션이 없으면 @RequestParam으로 처리
         personService.put(person);
-
-        log.info("person -> {}", personRepository.findAll());
     }
 
     @PutMapping("/{id}")
     public void modifyPerson(@PathVariable Long id, @RequestBody PersonDto personDto) {
         personService.modify(id, personDto);
-
-        log.info("person -> {}", personRepository.findAll());
     }
 
     @PatchMapping("/{id}") // 일부 리소스만 변경
     public void modifyPerson(@PathVariable Long id, String name) {
         personService.modify(id, name);
-
-        log.info("person -> {}", personRepository.findAll());
     }
 
     @DeleteMapping("/{id}")
     public void deletePerson(@PathVariable Long id) {
         personService.delete(id);
-
-        log.info("person -> {}", personRepository.findAll());
     }
 }

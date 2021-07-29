@@ -54,7 +54,7 @@ public class Person {
         }
 
         if (!StringUtils.isEmpty(personDto.getJob())) {
-            this.setAddress(personDto.getJob());
+            this.setJob(personDto.getJob());
         }
 
         if (!StringUtils.isEmpty(personDto.getPhoneNumber())) {
