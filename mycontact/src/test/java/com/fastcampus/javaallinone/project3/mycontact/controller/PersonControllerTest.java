@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
@@ -37,12 +38,14 @@ class PersonControllerTest {
     private PersonRepository personRepository;
     @Autowired
     private ObjectMapper objectMapper;
+    @Autowired
+    private MappingJackson2HttpMessageConverter messageConverter;
 
     private MockMvc mockMvc;
 
     @BeforeEach // 테스트마다 먼저 실행
     void beforeEach() {
-        mockMvc = MockMvcBuilders.standaloneSetup(personController).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(personController).setMessageConverters(messageConverter).build();
     }
 
     @Test
@@ -50,7 +53,17 @@ class PersonControllerTest {
         mockMvc.perform(
             MockMvcRequestBuilders.get("/api/person/1"))
             .andDo(MockMvcResultHandlers.print())
-            .andExpect(MockMvcResultMatchers.status().isOk());
+            .andExpect(MockMvcResultMatchers.status().isOk())
+            .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("martin"))
+            .andExpect(MockMvcResultMatchers.jsonPath("hobby").isEmpty())
+            .andExpect(MockMvcResultMatchers.jsonPath("address").isEmpty())
+            .andExpect(MockMvcResultMatchers.jsonPath("$.birthday").value("1991-08-15"))
+            .andExpect(MockMvcResultMatchers.jsonPath("$.job").isEmpty())
+            .andExpect(MockMvcResultMatchers.jsonPath("$.phoneNumber").isEmpty())
+            .andExpect(MockMvcResultMatchers.jsonPath("$.deleted").value(false))
+            .andExpect(MockMvcResultMatchers.jsonPath("$.age").isNumber())
+            .andExpect(MockMvcResultMatchers.jsonPath("$.birthdayToday").isBoolean())
+        ;
     }
 
     @Test
