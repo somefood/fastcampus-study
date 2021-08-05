@@ -26,8 +26,8 @@ public class PersonController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED) // 201 Response
-    public void postPerson(@RequestBody Person person) { // 어노테이션이 없으면 @RequestParam으로 처리
-        personService.put(person);
+    public void postPerson(@RequestBody PersonDto personDto) { // 어노테이션이 없으면 @RequestParam으로 처리
+        personService.put(personDto);
     }
 
     @PutMapping("/{id}")

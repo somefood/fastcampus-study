@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.test.web.servlet.MockMvc;
@@ -54,9 +55,9 @@ class PersonControllerTest {
             MockMvcRequestBuilders.get("/api/person/1"))
             .andDo(MockMvcResultHandlers.print())
             .andExpect(MockMvcResultMatchers.status().isOk())
-            .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("martin"))
-            .andExpect(MockMvcResultMatchers.jsonPath("hobby").isEmpty())
-            .andExpect(MockMvcResultMatchers.jsonPath("address").isEmpty())
+            .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("martin"))    // $는 객체 의미
+            .andExpect(MockMvcResultMatchers.jsonPath("$.hobby").isEmpty())
+            .andExpect(MockMvcResultMatchers.jsonPath("$.address").isEmpty())
             .andExpect(MockMvcResultMatchers.jsonPath("$.birthday").value("1991-08-15"))
             .andExpect(MockMvcResultMatchers.jsonPath("$.job").isEmpty())
             .andExpect(MockMvcResultMatchers.jsonPath("$.phoneNumber").isEmpty())
@@ -68,16 +69,23 @@ class PersonControllerTest {
 
     @Test
     void postPerson() throws Exception {
+        PersonDto dto = PersonDto.of("martin", "programming", "seoul", LocalDate.now(), "programmer", "010-1111-2222");
         mockMvc.perform(
                 MockMvcRequestBuilders.post("/api/person")
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
-                        .content("{\n" +
-                                "    \"name\": \"martin2\",\n" +
-                                "    \"age\": 20,\n" +
-                                "    \"bloodType\": \"A\"\n" +
-                                "}"))
+                        .content(toJsonString(dto)))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isCreated());
+
+        Person result = personRepository.findAll(Sort.by(Sort.Direction.DESC, "id")).get(0);
+        assertAll(
+                () -> assertThat(result.getName()).isEqualTo("martin"),
+                () -> assertThat(result.getHobby()).isEqualTo("programming"),
+                () -> assertThat(result.getAddress()).isEqualTo("seoul"),
+                () -> assertThat(result.getBirthday()).isEqualTo(Birthday.of(LocalDate.now())),
+                () -> assertThat(result.getJob()).isEqualTo("programmer"),
+                () -> assertThat(result.getPhoneNumber()).isEqualTo("010-1111-2222")
+        );
     }
 
     @Test
