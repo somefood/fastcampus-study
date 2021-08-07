@@ -13,6 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RequestMapping(value = "/api/person")
 @RestController
 @Slf4j
@@ -27,7 +29,7 @@ public class PersonController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED) // 201 Response
-    public void postPerson(@RequestBody PersonDto personDto) { // 어노테이션이 없으면 @RequestParam으로 처리
+    public void postPerson(@RequestBody @Valid PersonDto personDto) { // 어노테이션이 없으면 @RequestParam으로 처리
         personService.put(personDto);
     }
 
