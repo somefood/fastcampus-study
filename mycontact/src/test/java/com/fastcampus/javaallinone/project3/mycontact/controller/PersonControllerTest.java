@@ -60,8 +60,8 @@ class PersonControllerTest {
                         .param("page", "1")
                         .param("size", "2"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.totalPages").value(3)) // $ 해당 객체
-                .andExpect(MockMvcResultMatchers.jsonPath("$.totalElements").value(6))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.totalPages").value(5)) // $ 해당 객체
+                .andExpect(MockMvcResultMatchers.jsonPath("$.totalElements").value(9))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.numberOfElements").value(2))
 //                .andExpect(MockMvcResultMatchers.jsonPath("$.content.[0].name").value("martin"))
 //                .andExpect(MockMvcResultMatchers.jsonPath("$.content.[1].name").value("david"))
@@ -189,7 +189,7 @@ class PersonControllerTest {
         PersonDto dto = PersonDto.of("martin", "programming", "seoul", LocalDate.now(), "programmer", "010-1111-2222");
 
         mockMvc.perform(
-                MockMvcRequestBuilders.put("/api/person/10")
+                MockMvcRequestBuilders.put("/api/person/20")
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(toJsonString(dto)))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest())
