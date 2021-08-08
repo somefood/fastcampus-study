@@ -219,4 +219,11 @@ class PersonControllerTest {
     private String toJsonString(PersonDto personDto) throws JsonProcessingException {
         return objectMapper.writeValueAsString(personDto);
     }
+
+    @Test
+    void birthdayPeople() throws Exception {
+        mockMvc.perform(
+                MockMvcRequestBuilders.get("/api/person/birthday-friends"))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
 }

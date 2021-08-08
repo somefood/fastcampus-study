@@ -7,3 +7,6 @@ insert into person(`id`, `name`, `year_of_birthday`, `month_of_birthday`, `day_o
 values (6, 'tony', 1991, 7, 10, 'officer', 'reading', '010-2222-5555', '서울');
 insert into person(`id`, `name`, `deleted`)
 values (7, 'andrew', true);
+insert into person(`id`, `name`, `year_of_birthday`, `month_of_birthday`, `day_of_birthday`) values (8, 'seokju', 2021, 08, 08);
+insert into person(`id`, `name`, `year_of_birthday`, `month_of_birthday`, `day_of_birthday`) values (9, 'test', 2021, 08, 09);
+insert into person(`id`, `name`, `year_of_birthday`, `month_of_birthday`, `day_of_birthday`) values (10, 'fast', 2021, 08, 10);

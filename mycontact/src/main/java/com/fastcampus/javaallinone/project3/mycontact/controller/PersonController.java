@@ -56,4 +56,9 @@ public class PersonController {
     public void deletePerson(@PathVariable Long id) {
         personService.delete(id);
     }
+
+    @GetMapping("/birthday-friends")
+    public List<Person> getBirthdayPeople() {
+        return personService.getBirthdayPeople();
+    }
 }
