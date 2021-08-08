@@ -29,6 +29,7 @@ import org.springframework.web.util.NestedServletException;
 
 import java.time.LocalDate;
 
+import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Slf4j
@@ -50,6 +51,24 @@ class PersonControllerTest {
                 .webAppContextSetup(wac)
                 .alwaysDo(MockMvcResultHandlers.print())
                 .build();
+    }
+
+    @Test
+    void getAll() throws Exception {
+        mockMvc.perform(
+                MockMvcRequestBuilders.get("/api/person")
+                        .param("page", "1")
+                        .param("size", "2"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.totalPages").value(3)) // $ 해당 객체
+                .andExpect(MockMvcResultMatchers.jsonPath("$.totalElements").value(6))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.numberOfElements").value(2))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$.content.[0].name").value("martin"))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$.content.[1].name").value("david"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.content.[0].name").value("dennis"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.content.[1].name").value("sophia"));
+//                .andExpect(MockMvcResultMatchers.jsonPath("$.content.[4].name").value("benny"))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$.content.[5].name").value("tony"));
     }
 
     @Test
